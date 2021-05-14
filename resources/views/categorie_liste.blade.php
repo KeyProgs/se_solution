@@ -12,29 +12,41 @@
 {{--@endif--}}
 
 
-
 <table class="table table-striped task-table">
+
     <thead>
-    <th>Liste en cour</th>
-    <th>&nbsp;</th>
+    <th><a href="categorie/{{$categorie->id}}/palettes" >{{$categorie->categorie}}</a>
+        <br>
+      </th>
+
     </thead>
     <tbody>
-    @foreach ($data as $task)
+    @foreach ( $categorie->lastPalette()->getPackets() as $packet)
+
+
+
         <tr>
-            <td class="table-text"><div>{{ $task->qr }}</div></td>
+            <td class="table-text">
+                <div>{{ $packet->qr }}</div>
+            </td>
 
             <!-- Task Delete Button -->
             <td>
-                <form action="{{ url('task/'.$task->id) }}" id="pc{{ url('task/'.$task->id) }}" method="POST">
-                    {{ csrf_field() }}
+                <form action="{{ url('packet/destroy/'.$packet->id) }}" id="packet{{ $packet->id}}" method="POST">
+                    @csrf
                     {{ method_field('DELETE') }}
 
-                    <a href="#" onclick="document.getElementById('pc{{ url('task/'.$task->id) }}').submit();">
+                    <a href="#" onclick="document.getElementById('packet{{ $packet->id}}').submit();">
                         <i class="fa fa-btn fa-trash"></i>
                     </a>
                 </form>
             </td>
         </tr>
+
+        @php
+
+
+        @endphp
     @endforeach
     </tbody>
 </table>

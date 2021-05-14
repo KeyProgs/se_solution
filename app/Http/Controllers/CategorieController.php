@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categorie;
+use App\Models\Palette;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class CategorieController extends Controller
 {
@@ -22,9 +24,17 @@ class CategorieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+//        dd($request);
+        $categorie=new Categorie();
+        $categorie->categorie=$request->input('cat');
+        $categorie->ref=$request->input('ref');
+        $categorie->size=$request->input('size');
+        $categorie->save();
+        return redirect('/categories');
+
+
     }
 
     /**
@@ -46,7 +56,9 @@ class CategorieController extends Controller
      */
     public function show(Categorie $categorie)
     {
-        //
+        return view('categories.categories', [
+            'categories' =>Categorie::get(),
+        ]);
     }
 
     /**
@@ -69,7 +81,22 @@ class CategorieController extends Controller
      */
     public function update(Request $request, Categorie $categorie)
     {
-        //
+
+    }
+    public function updateAll(Request $request, Categorie $categorie)
+    {
+//        dd('ok');
+
+        $columns = Schema::getColumnListing('voitures');
+        $categories=Categorie::all();
+       foreach ($categories as $key => $categorie ){
+           $categorie->categorie=$request->input('cat'.$categorie->id);
+           $categorie->ref=$request->input('ref'.$categorie->id);
+           $categorie->size=$request->input('size'.$categorie->id);
+           $categorie->save();
+       }
+        return redirect('/categories');
+
     }
 
     /**
@@ -81,5 +108,11 @@ class CategorieController extends Controller
     public function destroy(Categorie $categorie)
     {
         //
+    }
+
+    public function palettes($id){
+
+        return view('palettes.palettes',['palettes' => Palette::where('categorie_id',$id)->paginate(5)]);
+
     }
 }

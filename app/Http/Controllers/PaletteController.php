@@ -46,7 +46,16 @@ class PaletteController extends Controller
      */
     public function show(Palette $palette)
     {
-        //
+//        dd('ok');
+        return view('palettes.palettes',['palettes' => Palette::paginate(5)]);
+
+
+    }
+
+    public function palette($id){
+
+        return view('palettes.palette',['palette' => Palette::find($id)->get()]);
+
     }
 
     /**
