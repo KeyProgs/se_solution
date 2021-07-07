@@ -134,4 +134,5 @@ class CategorieController extends Controller
     public function addForm(){
         return view("categories/addForm");
     }
+    //TODO
 }
