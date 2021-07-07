@@ -12,10 +12,11 @@
 
             <div class="col-12 row">
                 <!-- Current Tasks -->
-                @foreach($categories as $categorie)
-                    <div class="col-md-12">
 
-                        <div class="input-group mb-3">
+                @foreach($categories as $categorie)
+                    <div class="col-md-12 table-hover">
+
+                        <div class="input-group mb-3 ">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">categorie</span>
                             </div>
@@ -36,6 +37,13 @@
                             <input type="text" class="form-control" placeholder="Username" aria-label="Username"
                                    name="size{{$categorie->id}}" value="{{$categorie->size}}"
                                    aria-describedby="basic-addon1">
+
+
+                            &nbsp
+                            &nbsp
+                            <button type="button" class="btn btn-success"
+                                    onclick="document.getElementById('categoriesForm').submit();">
+                                Modifier</button>
                         </div>
 
 
@@ -43,15 +51,10 @@
 
                 @endforeach
 
-
-
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary"
-                            onclick="document.getElementById('categoriesForm').submit();">
-                        Modifier</button>
-                </div>
             </div>
         </form>
+        <br>
+        <br>
         @include('categories.categorie_add')
 
     </div>

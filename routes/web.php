@@ -15,6 +15,15 @@ use \App\Models\Packet;
 |
 */
 
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    return "Cache is cleared";
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -25,12 +34,11 @@ Route::group(['middleware' => ['web']], function () {
      * Show Task Dashboard
      */
     Route::get('/', function () {
-        $categories=\App\Models\Categorie::orderBy('created_at', 'asc')->get();
-
+        $categories = \App\Models\Categorie::orderBy('created_at', 'asc')->get();
 
 
         return view('app', [
-            'categories' =>$categories,
+            'categories' => $categories,
         ]);
     });
 
@@ -47,7 +55,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/categories', [\App\Http\Controllers\CategorieController::class, 'show']);
     Route::post('/categories/updateAll', [\App\Http\Controllers\CategorieController::class, 'updateAll']);
     Route::post('/categorie/create', [\App\Http\Controllers\CategorieController::class, 'create']);
+    Route::post('/categorie/addForm', [\App\Http\Controllers\CategorieController::class, 'addForm']);
     Route::get('/categorie/{id}/palettes', [\App\Http\Controllers\CategorieController::class, 'palettes']);
+    Route::get('/categories/download', [\App\Http\Controllers\CategorieController::class, 'download']);
 
     Route::get('/palettes', [\App\Http\Controllers\PaletteController::class, 'show']);
     Route::get('/palette/{id}', [\App\Http\Controllers\PaletteController::class, 'palette']);

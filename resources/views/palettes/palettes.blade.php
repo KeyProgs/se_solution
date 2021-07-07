@@ -2,9 +2,10 @@
 
 @section('content')
 
-<h1>Palettes</h1>
+<h1>>>Palettes</h1>
 
-    <table class="table table-striped">
+    <table class="table table-striped table-hover">
+        <thead class="thead bg-success">
         <tr>
             <td>ID</td>
             <td>Categorie</td>
@@ -12,8 +13,11 @@
             <td>DESC</td>
             <td>Creation</td>
         </tr>
+        </thead>
         @php
     @endphp
+
+
 
         @foreach($palettes as $palette )
             <tr>
