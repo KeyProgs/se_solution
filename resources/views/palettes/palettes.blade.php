@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>>>Palettes</h1>
+    <h1>>>Palettes</h1>
 
     <table class="table table-striped table-hover">
         <thead class="thead bg-success">
@@ -15,7 +15,7 @@
         </tr>
         </thead>
         @php
-    @endphp
+            @endphp
 
 
 
@@ -23,8 +23,12 @@
             <tr>
 
 
-                <td>{{$palette->id}} {{$palette->packets_count()}} </td>
-                <td><a href="{{ URL::asset('categorie/'.$palette->categorie()->id.'/palettes') }}">{{$palette->categorie()->categorie}}</a></td>
+                <td>{{$palette->id}} </td>
+                <td>
+                    <a href="{{ URL::asset('categorie/'.$palette->categorie()->id.'/palettes') }}">{{$palette->categorie()->categorie}}</a>
+                    - {{$palette->packets_count()}}
+
+                </td>
                 <td>
                     <img src="{{$palette->getQrImage()}}"/>
                 </td>
