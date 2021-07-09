@@ -31,5 +31,9 @@ class Palette extends Model
     public function packets(){
         return $this->hasMany('App\Models\Packet')->get();
     }
+    public function packets_count(){
+         $packets_count= $this->hasMany('App\Models\Packet')->get();
+         return count($packets_count);
+    }
 
 }

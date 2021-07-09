@@ -23,7 +23,7 @@
             <tr>
 
 
-                <td>{{$palette->id}}</td>
+                <td>{{$palette->id}} {{$palette->packets_count()}} </td>
                 <td><a href="{{ URL::asset('categorie/'.$palette->categorie()->id.'/palettes') }}">{{$palette->categorie()->categorie}}</a></td>
                 <td>
                     <img src="{{$palette->getQrImage()}}"/>
