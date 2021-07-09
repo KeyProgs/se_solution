@@ -26,7 +26,8 @@
                 <td>{{$palette->id}} </td>
                 <td>
                     <a href="{{ URL::asset('categorie/'.$palette->categorie()->id.'/palettes') }}">{{$palette->categorie()->categorie}}</a>
-                    - {{$palette->packets_count()}}
+                    - <span class="badge badge-success">{{$palette->packets_count()}}</span>
+
 
                 </td>
                 <td>
