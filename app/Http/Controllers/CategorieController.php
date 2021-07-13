@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response as FacadeResponse;
+
+
 
 class CategorieController extends Controller
 {
@@ -121,10 +124,18 @@ class CategorieController extends Controller
 
     public function download($id=1){
 //        dd(Categorie::find($id));
-        $file="ID;Categorie;Palette;QR Packet; \n\r";
+        $fopen = fopen("stock.csv", "w+");
+
+        $head="ID;Categorie;Palette;QR Packet; \n\r";
+        $head=['ID','Categorie','Palette','QR Packet'];
+        fputcsv($fopen,$head);
         foreach (Packet::all() as $key => $packet){
-            $file.=$packet->id .";". Categorie::find($packet->categorie_id)->categorie .";".Palette::find($packet->palette_id)->id.";".$packet->qr ."; \n\r ";
+//            $line=$packet->id .";". Categorie::find($packet->categorie_id)->categorie .";".Palette::find($packet->palette_id)->id.";".$packet->qr ."; \n\r ";
+            $line=[$packet->id ,Categorie::find($packet->categorie_id)->categorie ,Palette::find($packet->palette_id)->id,$packet->qr ];
+            fputcsv($fopen,$line);
         }
+        fclose($fopen);
+        return FacadeResponse::download('stock.csv');
 
         return (new Response($file, 200))
             ->header("Content-Type", "text/csv");
